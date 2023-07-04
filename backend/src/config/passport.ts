@@ -3,10 +3,9 @@ import bcrypt from "bcrypt"
 import { Strategy as LocalStrategy } from 'passport-local';
 import passport from "passport"
 
-
 passport.use(
-    new LocalStrategy(async (username, password, done) => {
-        const user = await userModel.findOne({ username })
+    new LocalStrategy({usernameField:"email",passwordField:"password"},async (email, password, done) => {
+        const user = await userModel.findOne({ email })
         if (!user) {
             return done(null, false)
         }
@@ -19,10 +18,10 @@ passport.use(
     })
 )
 passport.serializeUser((user:any, cb) => {
-    return cb(null, user.username)
+    return cb(null, user.id)
 })
 passport.deserializeUser(async (user, cb) => {
-    let usere  = await userModel.findOne({ username: user })
+    let usere  = await userModel.findOne({ _id:user })
     return cb(null , usere)
 })
 

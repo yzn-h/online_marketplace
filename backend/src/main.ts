@@ -4,6 +4,7 @@ import homeRouter from "./routes/home.router"
 import mongoose from 'mongoose'
 import passport from 'passport'
 import session from "express-session"
+import "./config/passport"
 import MongoStore from 'connect-mongo'
 import cors from "cors"
 const app = express()
@@ -23,7 +24,7 @@ app.use(session({
         mongoUrl: process.env.DB_STRING
     })
 }))
-
+app.use(express.json())
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(homeRouter)
