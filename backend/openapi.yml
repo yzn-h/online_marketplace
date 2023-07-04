@@ -1,0 +1,95 @@
+openapi: '3.0.2'
+info:
+  title: Online Mracketplace
+  version: '1.0'
+servers:
+  - url: https://localhost:3000
+tags:
+  - name: auth
+
+
+paths:
+  /auth/login:
+    
+    post:
+      tags:
+        - "auth"
+      description: login to your account and recive cookies from backend
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                
+                email:
+                  type: string
+                password:
+                  type: string
+                    
+            example:
+              {"email":"mohamed@gmail.com","password":"mohamed@password1"}
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: unauthorized something worg with username or password
+
+
+
+  /auth/signup:
+    post:
+      tags:
+        - "auth"
+      description: create new account with your information
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                username: 
+                  type: string
+                password: 
+                  type: string
+                phone: 
+                  type: number      
+            example:
+              {"email":"mohamed@gmail.com","username":"mohamed","password":"mohamed@password1","phone":0123456789}          
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                ["email is already used","username must be defined","password must be atleast 6 charachters"]
+
+
+
+  /auth/validate:
+    get:
+      tags:
+        - "auth"
+      description: check if user is authed or not
+      responses:
+        '200':
+          description: OK
+        "401":
+          description: user is not authed
+
+
+
+
+  /auth/logout:
+    get:
+      tags:
+        - "auth"
+      description: logout
+      responses:
+        '200':
+          description: OK
+            

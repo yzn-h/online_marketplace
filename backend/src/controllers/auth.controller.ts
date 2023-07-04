@@ -18,7 +18,7 @@ class authController{
     })(req, res, next);
 
   };
-  public static register (req: Request, res: Response) {
+  public static signup (req: Request, res: Response) {
     res.send("welcome in authController");
   };
   public static logout (req: Request, res: Response) {
